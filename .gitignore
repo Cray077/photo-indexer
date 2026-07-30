@@ -1,1 +1,5 @@
 build_windows
+build_windows_debug
+pictures
+*.user.txt
+*.txt

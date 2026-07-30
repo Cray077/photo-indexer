@@ -17,7 +17,7 @@ Column {
         cellWidth: 220
         cellHeight: 200
 
-        model: 12
+        model: searchEngine.searchPictures("pictures")
 
         delegate: Rectangle {
             width: 190
@@ -32,11 +32,15 @@ Column {
                 anchors.margins: 10
                 spacing: 8
 
-                Rectangle {
+                Image { // put image here
+                    source: modelData
                     width: parent.width
                     height: 120
-                    radius: 8
-                    color: "#D8D8D8"
+                    fillMode: Image.PreserveAspectCrop
+                    sourceSize.width: width
+                    sourceSize.height: height
+                    asynchronous: true
+                    cache: true
                 }
 
                 Label {

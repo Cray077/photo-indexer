@@ -1,7 +1,7 @@
 import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
-import "components"
+import "pages"
 
 ApplicationWindow {
     visible: true
@@ -27,11 +27,13 @@ ApplicationWindow {
         // Main Content
         // ==========================
         ScrollView {
+            id: mainScroll
             Layout.fillWidth: true
             Layout.fillHeight: true
+            contentWidth: availableWidth
 
             Column {
-                width: parent.width
+                width: mainScroll.availableWidth
                 spacing: 28
                 padding: 30
 
