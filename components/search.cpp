@@ -19,7 +19,7 @@ QString SearchEngine::searchDir(const QDir dir) {
     return "";
 }
 
-QVariantList SearchEngine::searchPictures(const QString &path) {
+void SearchEngine::searchPictures(const QString &path) {
     qDebug() << "executed" << __PRETTY_FUNCTION__ ;
     QDir directory(path);
 
@@ -28,14 +28,28 @@ QVariantList SearchEngine::searchPictures(const QString &path) {
         QDir::Files
     );
 
+
     QVariantList pictures;
 
     for(const QFileInfo &fileInfo : files) {
-        const QUrl fileUrl = QUrl::fromLocalFile(fileInfo.absoluteFilePath());
+        QVariantMap picture;
+        // const QUrl fileUrl = QUrl::fromLocalFile(fileInfo.absoluteFilePath());
+        picture["fileName"] = fileInfo.fileName();
+        picture["filePath"] = QUrl::fromLocalFile(fileInfo.absoluteFilePath());
+        picture["birthDate"] = fileInfo.birthTime().toString();
         qDebug() << "File: " << fileInfo.absoluteFilePath();
-        pictures.append(fileUrl.toString());
+        pictures.append(picture);
     }
 
-    return pictures;
+    setPictures(pictures);
+}
+
+QVariantList SearchEngine::getPictures() {
+    return m_pictures;
+}
+
+void SearchEngine::setPictures(const QVariantList newPictures) {
+    if (newPictures == m_pictures) return;
+    m_pictures = newPictures;
 }
 

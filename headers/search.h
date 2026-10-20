@@ -21,13 +21,16 @@ private:
         "*.tif",
         "*.tiff"
     };
+    QVariantList m_pictures;
 
 public:
     explicit SearchEngine(QObject *parent = nullptr);
     ~SearchEngine();
 
     QString searchDir(const QDir dir);
-    Q_INVOKABLE QVariantList searchPictures(const QString &path);
+    Q_INVOKABLE void searchPictures(const QString &path);
+    Q_INVOKABLE QVariantList getPictures();
+    void setPictures(const QVariantList newPictures);
 };
 
 

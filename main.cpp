@@ -15,6 +15,7 @@ int main(int argc, char *argv[])
     QQmlApplicationEngine engine;
 
     SearchEngine search;
+    search.searchPictures("C:\\Users\\Beta Tester\\personal-projects\\photo-indexer\\pictures");
     engine.rootContext()->setContextProperty(
         "searchEngine",
         &search

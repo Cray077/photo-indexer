@@ -1,6 +1,7 @@
 import QtQuick
 import QtQuick.Controls
 
+pragma ComponentBehavior: Bound
 Column {
     spacing: 18
 
@@ -10,6 +11,10 @@ Column {
         font.bold: true
     }
 
+    PhotoPopUp{
+        id: photoPopUp
+    }
+
     GridView {
         width: parent.width
         height: 600
@@ -17,9 +22,11 @@ Column {
         cellWidth: 220
         cellHeight: 200
 
-        model: searchEngine.searchPictures("pictures")
+        model: searchEngine.getPictures()
 
         delegate: Rectangle {
+            required property var modelData
+            id: photoDelegate
             width: 190
             height: 180
 
@@ -27,31 +34,50 @@ Column {
             color: "#FFFFFF"
             border.color: "#DDDDDD"
 
-            Column {
-                anchors.fill: parent
-                anchors.margins: 10
-                spacing: 8
+            MouseArea {
+                width: parent.width
+                height: parent.height
 
-                Image { // put image here
-                    source: modelData
-                    width: parent.width
-                    height: 120
-                    fillMode: Image.PreserveAspectCrop
-                    sourceSize.width: width
-                    sourceSize.height: height
-                    asynchronous: true
-                    cache: true
+                cursorShape: Qt.PointingHandCursor
+
+                onClicked: {
+                    photoPopUp.imagePath = photoDelegate.modelData.filePath
+                    photoPopUp.open()
                 }
+                Column {
+                    anchors.fill: parent
+                    anchors.margins: 10
+                    spacing: 8
 
-                Label {
-                    text: "IMG_" + (index + 1)
-                    font.bold: true
-                }
+                    Image { // put image here
+                        source: photoDelegate.modelData.filePath
+                        width: parent.width
+                        height: 120
+                        fillMode: Image.PreserveAspectCrop
+                        sourceSize.width: width
+                        sourceSize.height: height
+                        asynchronous: true
+                        cache: true
+                    }
 
-                Label {
-                    text: "May 19, 2025"
-                    color: "#888888"
-                    font.pixelSize: 12
+                    Label {
+                        width: parent.width
+                        text: photoDelegate.modelData.fileName
+                        font.bold: true
+                        horizontalAlignment: Text.AlignHCenter
+                        elide: Text.ElideRight
+                        wrapMode: Text.NoWrap
+                    }
+
+                    Label {
+                        width: parent.width
+                        text: photoDelegate.modelData.birthDate
+                        color: "#888888"
+                        font.pixelSize: 12
+                        horizontalAlignment: Text.AlignHCenter
+                        elide: Text.ElideRight
+                        wrapMode: Text.NoWrap
+                    }
                 }
             }
         }

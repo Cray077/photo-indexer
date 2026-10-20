@@ -1,5 +1,4 @@
-build_windows
-build_windows_debug
+build*
 pictures
 *.user.txt
 *.txt

@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.16)
 
-project(QtAndroidTemplate VERSION 0.1 LANGUAGES CXX)
+project(PhotoIndexer VERSION 0.1 LANGUAGES CXX)
 
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
@@ -24,6 +24,7 @@ qt_add_qml_module(indexer
         pages/SearchBar.qml
         pages/CategorySection.qml
         pages/RecentPhotosSection.qml
+        pages/PhotoPopUp.qml
 )
 
 # Properties for Android and other platforms
